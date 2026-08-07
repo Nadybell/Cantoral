@@ -80,6 +80,7 @@ function can(action) {
   if (ROLE === 'visiteur') return false;
   if (action === 'validate') return ROLE === 'cp' || ROLE === 'webmaster';
   if (action === 'admin') return ROLE === 'webmaster';
+  if (action === 'manage-personnes') return ROLE === 'cp';
   return true; // animateur, cp, webmaster can edit
 }
 
@@ -312,7 +313,7 @@ function renderSidebar(active) {
       ${item('accueil', '⌂', 'Accueil')}
       ${item('chants-liste', '☰', 'Afficher les chants')}
       ${item('chants', '♪', 'Rechercher un chant')}
-      ${item('programmes', '❧', 'Programmes')}
+      ${item('programmes', '❧', 'Afficher les programmes')}
       ${item('calendrier', '▤', 'Calendrier')}
       ${can('edit') ? item('dates-vacantes', '⚠', 'Dates vacantes') : ''}
       <div class="nav-sep">Équipes</div>
@@ -828,7 +829,7 @@ function pageProgrammes() {
   <div class="page-head">
     <div>
       <div class="crumb">Préparation</div>
-      <h1>Programmes</h1>
+      <h1>Afficher les programmes</h1>
       <p class="muted">Programmes de chant générés pour les offices.</p>
     </div>
     ${can('edit') ? `<button class="primary" onclick="nav('#/programme-nouveau')">+ Générer un programme</button>` : ''}
@@ -999,12 +1000,16 @@ function generateProgramme() {
         <div class="prog-slot">
           <label>${slot.label}</label>
           <div>
-            <select onchange="window._genSlots['${slot.code}']=this.value||null">
+            <select id="gen-slot-${slot.code}" onchange="window._genSlots['${slot.code}']=this.value||null">
               <option value="MENTION" selected>${esc(DEFAULT_MENTIONS[slot.code])}</option>
               <option value="">— aucun —</option>
               ${options.map(o => `<option value="${o.c.id}">${esc(o.c.titre)}</option>`).join('')}
               ${DB.chants.filter(c => c.type_chant === slot.code && !options.find(o=>o.c.id===c.id)).map(c => `<option value="${c.id}">${esc(c.titre)}</option>`).join('')}
             </select>
+            <div class="row" style="margin-top:6px;gap:6px;">
+              <input id="new-gen-chant-${slot.code}" placeholder="Chant trouvé en ligne : nom du chant…" style="flex:1;font-size:12px;padding:6px 8px;">
+              <button class="ghost" style="font-size:11px;padding:5px 9px;white-space:nowrap;" onclick="quickCreateChant('${slot.code}','gen-slot-${slot.code}','new-gen-chant-${slot.code}')">+ Ajouter au répertoire</button>
+            </div>
           </div>
           <span></span>
         </div>`;
@@ -1015,12 +1020,16 @@ function generateProgramme() {
         <div class="prog-slot" style="align-items:flex-start;">
           <label style="padding-top:8px;">${slot.label}</label>
           <div>
-            <select onchange="window._genSlots['${slot.code}']=this.value||null">
+            <select id="gen-slot-${slot.code}" onchange="window._genSlots['${slot.code}']=this.value||null">
               <option value="">— aucun chant —</option>
               ${options.map(o => `<option value="${o.c.id}" selected>${esc(o.c.titre)}</option>`).join('')}
               ${DB.chants.filter(c => c.type_chant === slot.code && !options.find(o=>o.c.id===c.id)).map(c => `<option value="${c.id}">${esc(c.titre)}</option>`).join('')}
             </select>
             ${options.length && options[0].score !== null ? `<span class="score">${options[0].score}% de correspondance</span>` : options.length ? `<span class="muted" style="font-size:11px;">Filtré par type</span>` : `<div id="${containerId}" style="margin-top:6px;"><p class="muted" style="font-size:12px;">Recherche en ligne de propositions…</p></div>`}
+            <div class="row" style="margin-top:6px;gap:6px;">
+              <input id="new-gen-chant-${slot.code}" placeholder="Chant trouvé en ligne : nom du chant…" style="flex:1;font-size:12px;padding:6px 8px;">
+              <button class="ghost" style="font-size:11px;padding:5px 9px;white-space:nowrap;" onclick="quickCreateChant('${slot.code}','gen-slot-${slot.code}','new-gen-chant-${slot.code}')">+ Ajouter au répertoire</button>
+            </div>
           </div>
           <div style="padding-top:6px;">${ytLink}</div>
         </div>`;
@@ -1113,8 +1122,19 @@ function pageProgrammeDetail(id) {
       ${can('edit') ? `<button class="danger" onclick="deleteProgramme(${p.id})">Supprimer</button>` : ''}
     </div>
   </div>
+  ${(() => {
+    const incomplete = programmeIncompleteChants(p);
+    if (!incomplete.length) return '';
+    return `<div class="card" style="margin-bottom:16px;border-color:#d8a94a;background:var(--gold-tint);">
+      <h3 style="font-size:14.5px;">⚠ Programme non validable — ${incomplete.length} chant(s) incomplet(s)</h3>
+      <ul style="margin:6px 0 0;padding-left:18px;font-size:13px;">
+        ${incomplete.map(i => `<li><b>${esc(i.slot)}</b> : ${esc(i.titre)} — ${esc(i.reason)}</li>`).join('')}
+      </ul>
+      <p class="muted" style="margin:8px 0 0;font-size:12px;">Complétez la partition et l’audio de chaque chant concerné (page Chants) pour pouvoir valider ce programme.</p>
+    </div>`;
+  })()}
   <div class="card">
-    ${editable ? `<p class="muted" style="margin-top:-6px;">Modifiez chaque chant ci-dessous, puis enregistrez. Les créneaux sans chant en base proposent une recherche en ligne.</p>` : ''}
+    ${editable ? `<p class="muted" style="margin-top:-6px;">Modifiez chaque chant ci-dessous, ou saisissez un chant trouvé en ligne pour l’ajouter au répertoire, puis enregistrez.</p>` : ''}
     ${SLOTS.map(slot => {
       const val = p.slots[slot.code];
       if (val === 'ORDINAIRE') {
@@ -1130,9 +1150,10 @@ function pageProgrammeDetail(id) {
       const ytLink = `<a class="btn" style="padding:4px 9px;font-size:11.5px;" target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(ytQuery)}">▶ YouTube</a>`;
       const c = (val && val !== 'MENTION') ? DB.chants.find(x => x.id == val) : null;
       if (!editable) {
+        const warn = c && !isChantComplete(c) ? `<span class="badge gold" style="margin-left:6px;">⚠ incomplet</span>` : '';
         return `<div class="prog-slot">
           <label>${slot.label}</label>
-          <div>${c ? `<a onclick="nav('#/chants/${c.id}')" style="cursor:pointer;">${esc(c.titre)}</a>` : isMention ? `<span class="badge sage">${esc(DEFAULT_MENTIONS[slot.code])}</span>` : `<span class="muted">— non renseigné —</span>`}</div>
+          <div>${c ? `<a onclick="nav('#/chants/${c.id}')" style="cursor:pointer;">${esc(c.titre)}</a>${warn}` : isMention ? `<span class="badge sage">${esc(DEFAULT_MENTIONS[slot.code])}</span>` : `<span class="muted">— non renseigné —</span>`}</div>
           ${ytLink}
         </div>`;
       }
@@ -1152,7 +1173,12 @@ function pageProgrammeDetail(id) {
             ${candidates.map(ch => `<option value="${ch.id}" ${String(val)===String(ch.id)?'selected':''}>${esc(ch.titre)}</option>`).join('')}
             ${currentMismatch ? `<option value="${currentMismatch.id}" selected>${esc(currentMismatch.titre)}</option>` : ''}
           </select>
+          ${c && !isChantComplete(c) ? `<div class="muted" style="font-size:11px;margin-top:3px;">⚠ partition ou audio manquant — <a onclick="nav('#/chant-edit/${c.id}')" style="cursor:pointer;">compléter</a></div>` : ''}
           ${noLocalCandidate && !val && !DEFAULT_MENTIONS[slot.code] ? `<div id="${containerId}" style="margin-top:6px;"><p class="muted" style="font-size:12px;">Recherche en ligne de propositions…</p></div>` : ''}
+          <div class="row" style="margin-top:6px;gap:6px;">
+            <input id="new-chant-${slot.code}" placeholder="Chant trouvé en ligne : nom du chant…" style="flex:1;font-size:12px;padding:6px 8px;">
+            <button class="ghost" style="font-size:11px;padding:5px 9px;white-space:nowrap;" onclick="quickCreateChant('${slot.code}','pd-slot-${slot.code}','new-chant-${slot.code}')">+ Ajouter au répertoire</button>
+          </div>
         </div>
         <div style="padding-top:6px;">${ytLink}</div>
       </div>`;
@@ -1161,6 +1187,28 @@ function pageProgrammeDetail(id) {
   </div>
   ${p.lecture ? `<div class="card" style="margin-top:16px;"><h3>Lecture du jour utilisée</h3><p style="white-space:pre-wrap;">${esc(p.lecture)}</p></div>` : ''}
   `;
+}
+function quickCreateChant(slotCode, selectId, inputId) {
+  if (!can('edit')) return;
+  const input = document.getElementById(inputId);
+  const titre = input.value.trim();
+  if (!titre) { toast('Saisissez le nom du chant trouvé en ligne'); return; }
+  const newId = DB.nextChantId++;
+  DB.chants.push({
+    id: newId, titre, type_chant: slotCode, reference1: null, reference2: null, texte: null,
+    type_messe: null, compositeur: null, harmonisation: null, partition: null, youtube: null, audios: [], custom: {},
+  });
+  persist();
+  const select = document.getElementById(selectId);
+  if (select) {
+    const opt = document.createElement('option');
+    opt.value = String(newId); opt.textContent = titre;
+    select.appendChild(opt);
+    select.value = String(newId);
+    select.dispatchEvent(new Event('change'));
+  }
+  input.value = '';
+  toast('Chant ajouté au répertoire — pensez à compléter partition et audio avant de valider');
 }
 function saveProgrammeSlots(id) {
   const p = DB.programmes.find(x => x.id === id);
@@ -1171,8 +1219,32 @@ function saveProgrammeSlots(id) {
   });
   persist(); toast('Programme mis à jour'); render();
 }
+function isChantComplete(chant) {
+  return !!chant && !!chant.partition && ((chant.audios && chant.audios.length > 0) || !!chant.youtube);
+}
+function programmeIncompleteChants(p) {
+  const out = [];
+  SLOTS.forEach(slot => {
+    const val = p.slots[slot.code];
+    if (!val || val === 'MENTION' || val === 'ORDINAIRE') return;
+    const chant = DB.chants.find(c => c.id == val);
+    if (!chant) { out.push({ slot: slot.label, titre: '(chant supprimé)', reason: 'chant introuvable' }); return; }
+    if (!isChantComplete(chant)) {
+      const reasons = [];
+      if (!chant.partition) reasons.push('partition manquante');
+      if (!(chant.audios && chant.audios.length) && !chant.youtube) reasons.push('audio manquant');
+      out.push({ slot: slot.label, titre: chant.titre, reason: reasons.join(', ') });
+    }
+  });
+  return out;
+}
 function validateProgramme(id) {
   const p = DB.programmes.find(x => x.id === id);
+  const incomplete = programmeIncompleteChants(p);
+  if (incomplete.length) {
+    toast(`Validation impossible : ${incomplete.length} chant(s) incomplet(s) (partition/audio manquant)`);
+    return;
+  }
   p.statut = 'validé'; persist(); toast('Programme validé'); render();
 }
 function deleteProgramme(id) {
@@ -1427,7 +1499,7 @@ function pagePersonnes(kind) {
       <h1>${title}</h1>
       <p class="muted">${all.length} personne(s) réparties sur ${Object.keys(DB.clochets).length} clochers.</p>
     </div>
-    ${can('edit') ? `<button class="primary" onclick="openPersonForm('${kind}')">+ Ajouter</button>` : ''}
+    ${can('manage-personnes') ? `<button class="primary" onclick="openPersonForm('${kind}')">+ Ajouter</button>` : ''}
   </div>
   <div class="card" style="margin-bottom:16px;">
     <h3>Rechercher un ${isAnim ? 'animateur' : 'musicien'}</h3>
@@ -1449,7 +1521,7 @@ function pagePersonnes(kind) {
   <div id="person-form-zone"></div>
   <div class="card">
     <table>
-      <thead><tr><th>Nom</th><th>Prénom</th>${isAnim?'':'<th>Instrument</th>'}<th>Clocher</th><th>Arrivée</th>${(DB.schema[kind]||[]).map(f=>`<th>${esc(f.label)}</th>`).join('')}${can('edit')?'<th></th>':''}</tr></thead>
+      <thead><tr><th>Nom</th><th>Prénom</th>${isAnim?'':'<th>Instrument</th>'}<th>Clocher</th><th>Arrivée</th>${(DB.schema[kind]||[]).map(f=>`<th>${esc(f.label)}</th>`).join('')}${can('manage-personnes')?'<th></th>':''}</tr></thead>
       <tbody>
       ${list.length ? list.map(p => `
         <tr>
@@ -1458,7 +1530,7 @@ function pagePersonnes(kind) {
           <td>${p.clochet ? clochetLabel(p.clochet) : '—'}</td>
           <td>${p.date_arrivee ? fmtDate(p.date_arrivee) : '—'}</td>
           ${(DB.schema[kind]||[]).map(f=>`<td>${esc(p.custom && p.custom[f.key]) || '—'}</td>`).join('')}
-          ${can('edit') ? `<td class="no-print"><button class="ghost" onclick="deletePerson('${kind}',${p.id})">Supprimer</button></td>` : ''}
+          ${can('manage-personnes') ? `<td class="no-print"><button class="ghost" onclick="openPersonForm('${kind}',${p.id})">Modifier</button> <button class="ghost" onclick="deletePerson('${kind}',${p.id})">Supprimer</button></td>` : ''}
         </tr>`).join('') : `<tr><td colspan="6" class="muted" style="text-align:center;padding:20px;">Aucun résultat pour cette recherche.</td></tr>`}
       </tbody>
     </table>
@@ -1490,37 +1562,50 @@ function clearSearchPerson(kind) {
   window._personSearch = null;
   render();
 }
-function openPersonForm(kind) {
+function openPersonForm(kind, editId) {
+  if (!can('manage-personnes')) return;
   const isAnim = kind === 'animateurs';
+  const list = isAnim ? DB.animateurs : DB.musiciens;
+  const p = editId ? list.find(x => x.id === editId) : null;
   document.getElementById('person-form-zone').innerHTML = `
   <div class="card" style="margin-bottom:16px;max-width:640px;">
+    <h3>${p ? 'Modifier' : 'Ajouter'} ${isAnim ? 'un animateur' : 'un musicien'}</h3>
     <div class="grid2">
-      <div class="field"><label>Nom *</label><input id="pf2-nom"></div>
-      <div class="field"><label>Prénom *</label><input id="pf2-prenom"></div>
-      ${isAnim ? '' : `<div class="field"><label>Instrument</label><select id="pf2-instrument">${Object.entries(DB.instruments).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></div>`}
-      <div class="field"><label>Clocher</label><select id="pf2-clochet">${Object.entries(DB.clochets).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></div>
-      <div class="field"><label>Date d’arrivée</label><input type="date" id="pf2-date"></div>
-      ${renderCustomFieldInputs(kind, {})}
+      <div class="field"><label>Nom *</label><input id="pf2-nom" value="${esc(p ? p.nom : '')}"></div>
+      <div class="field"><label>Prénom *</label><input id="pf2-prenom" value="${esc(p ? p.prenom : '')}"></div>
+      ${isAnim ? '' : `<div class="field"><label>Instrument</label><select id="pf2-instrument">${Object.entries(DB.instruments).map(([k,v])=>`<option value="${k}" ${p&&p.instrument===k?'selected':''}>${v}</option>`).join('')}</select></div>`}
+      <div class="field"><label>Clocher</label><select id="pf2-clochet">${Object.entries(DB.clochets).map(([k,v])=>`<option value="${k}" ${p&&String(p.clochet)===String(k)?'selected':''}>${v}</option>`).join('')}</select></div>
+      <div class="field"><label>Date d’arrivée</label><input type="date" id="pf2-date" value="${p&&p.date_arrivee ? p.date_arrivee : ''}"></div>
+      ${renderCustomFieldInputs(kind, p || {})}
     </div>
     <div class="row">
-      <button class="primary" onclick="savePerson('${kind}')">Enregistrer</button>
+      <button class="primary" onclick="savePerson('${kind}'${editId ? ','+editId : ''})">Enregistrer</button>
       <button class="ghost" onclick="document.getElementById('person-form-zone').innerHTML=''">Annuler</button>
     </div>
   </div>`;
 }
-function savePerson(kind) {
+function savePerson(kind, editId) {
+  if (!can('manage-personnes')) return;
   const isAnim = kind === 'animateurs';
   const val = i => document.getElementById(i).value.trim();
   const nom = val('pf2-nom'), prenom = val('pf2-prenom');
   if (!nom || !prenom) { toast('Nom et prénom obligatoires'); return; }
+  const data = { nom, prenom, date_arrivee: val('pf2-date')||null, clochet: val('pf2-clochet')?Number(val('pf2-clochet')):null, custom: readCustomFieldValues(kind) };
+  if (!isAnim) data.instrument = val('pf2-instrument');
   const list = isAnim ? DB.animateurs : DB.musiciens;
-  const idKey = isAnim ? 'nextAnimateurId' : 'nextMusicienId';
-  const entry = { id: DB[idKey]++, nom, prenom, date_arrivee: val('pf2-date')||null, clochet: val('pf2-clochet')?Number(val('pf2-clochet')):null, custom: readCustomFieldValues(kind) };
-  if (!isAnim) entry.instrument = val('pf2-instrument');
-  list.push(entry);
-  persist(); toast('Enregistré'); document.getElementById('person-form-zone').innerHTML=''; render();
+  if (editId) {
+    const idx = list.findIndex(p => p.id === editId);
+    list[idx] = { ...list[idx], ...data };
+    toast('Modifié');
+  } else {
+    const idKey = isAnim ? 'nextAnimateurId' : 'nextMusicienId';
+    list.push({ id: DB[idKey]++, ...data });
+    toast('Enregistré');
+  }
+  persist(); document.getElementById('person-form-zone').innerHTML=''; render();
 }
 function deletePerson(kind, id) {
+  if (!can('manage-personnes')) return;
   if (!confirm('Confirmer la suppression ?')) return;
   if (kind === 'animateurs') DB.animateurs = DB.animateurs.filter(p => p.id !== id);
   else DB.musiciens = DB.musiciens.filter(p => p.id !== id);

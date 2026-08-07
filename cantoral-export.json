@@ -1,0 +1,948 @@
+{
+  "chants": [
+    {
+      "id": 1,
+      "titre": "Que ma bouche chante ta louange",
+      "reference1": null,
+      "reference2": null,
+      "texte": "1. De toi, Seigneur, nous attendons la vie,\nQue ma bouche chante ta louange !\nTu es pour nous un rempart, un appui,\nQue ma bouche chante ta louange !\n\nLa joie du cœur vient de toi, ô Seigneur    \nQue ma bouche chante ta louange !\nNotre confiance est dans ton nom très saint \n!Que ma bouche chante ta louange !R. Sois loué, Seigneur, pour ta grandeur,Sois loué pour tous tes bienfaits.Gloire à toi, Seigneur, tu es vainqueur,Ton amour inonde nos cœurs.Que ma bouche chante ta louange !2. Seigneur, tu as éclairé notre nuit,Que ma bouche…Tu es lumière et clarté sur nos pas,Que ma bouche…Tu affermis nos mains pour le combat,Que ma bouche…Seigneur, tu nous fortifies dans la foi !Que ma bouche…3. Tu viens sauver tes enfants égarés,Que ma bouche…Qui dans leur cœur espèrent en ton amour,Que ma bouche…Dans leur angoisse, ils ont crié vers toi,Que ma bouche…Seigneur, tu entends le son de leur voix !Que ma bouche…4. Des ennemis, toi, tu m’as délivré,Que ma bouche…De l’agresseur, tu m’as fait triompher,Que ma bouche…Je te rends grâce au milieu des nations,Que ma bouche…Seigneur, en tout temps, je fête ton Nom !Que ma bouche…",
+      "type_messe": "ORD",
+      "type_chant": "ENT",
+      "compositeur": "Glorius",
+      "harmonisation": null,
+      "partition": null,
+      "youtube": "https://youtu.be/KTXkDEen3m0?si=urAQpRRngYl1xrQA",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 2,
+      "titre": "Goûtez et voyez",
+      "reference1": null,
+      "reference2": "IEV 21-06",
+      "texte": "R. Goûtez et voyez comme est bon notre Seigneur,Recevez Jésus, livré pour le Salut.Devenez le temple saint du Christ Ressuscité,Devenez le temple saint,Demeure du Sauveur.1. Par ton corps livré, tu prends sur toi la faute,Par ton sang versé, tu laves nos péchés,Par ton cœur blessé, d’où jaillit le Salut,Tu nous as rachetés.2. Jésus, pain du ciel, tu descends dans le monde,Dieu parmi les siens, mystère de l’amour,Tu te rends présent, livré entre nos mains,Près de nous pour toujours.3. Seigneur, tu nous offres, en ce banquet de Noces,Le vin de l’alliance et le pain de la Vie,Nous vivons en toi, comme tu vis en nous,Un seul corps dans l’Esprit.4. En te recevant, nous devenons l’Église,Peuple racheté, prémices du Salut.Par ta charité, tu rassembles en un corpsLes enfants dispersés.5. Qu’il est grand, Seigneur, l’amour dont tu nous aimes,Tu te livres à nous en cette Eucharistie,Sommet de l’amour, don de la Trinité,Tu te fais pain de Vie.",
+      "type_messe": "ORD",
+      "type_chant": "COM",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Goutez-et-voyez-4-voix.pdf",
+      "youtube": "https://www.bing.com/videos/riverview/relatedvideo?q=Goutez+Et+Voyez+Chant+De+l%27Emmanuel&&mid=A005F7BAFE0A7B871C8AA005F7BAFE0A7B871C8A&churl=https%3a%2f%2fwww.youtube.com%2fchannel%2fUCxOPWH4TInStd1nluYv04cA&FORM=VRDGAR",
+      "audios": []
+    },
+    {
+      "id": 3,
+      "titre": "L'éternel seul est ma lumière",
+      "reference1": "PS_27",
+      "reference2": "CJ_139",
+      "texte": null,
+      "type_messe": "TSN",
+      "type_chant": "PSM",
+      "compositeur": "Franz Joseph haydn",
+      "harmonisation": null,
+      "partition": "https://cantiques.yapper.fr/CJ/CJ_139_partition.html",
+      "youtube": null,
+      "audios": [
+        {
+          "label": "Écouter",
+          "src": "/Medias/Partitions/CJ_139"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "titre": "Gloria de Lourde",
+      "reference1": null,
+      "reference2": "A189",
+      "texte": "Gloria, gloria, in excelsis Deo ! (bis)Paix sur la terre aux hommes qu’il aimeNous te louons, nous te bénissons, nous t’adorons,Nous te glorifions, nous te rendons grâce pour ton immense gloire,Seigneur Dieu, roi du ciel, Dieu le Père tout-puissant.Gloria, gloria, in excelsis Deo ! (bis)Seigneur, Fils unique, Jésus-Christ,Seigneur Dieu, Agneau de dieu, le fils du Père ;Toi qui enlèves les péchés du monde, prends pitié de nous ;Toi qui enlèves les péchés du monde, reçois notre prière ;Toi qui es assis à la droite du Père, prends pitié de nous;Gloria, gloria, in excelsis Deo ! (bis)Car toi seul es Saint, toi seul es Seigneur,Toi seul es le très haut ; Jésus-Christ avec le Saint EspritDans la gloire de Dieu le père, AMEN",
+      "type_messe": "NOL",
+      "type_chant": "GLO",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": "https://choeurs-st-louis.fr/siteChorale/pdfLitur/Gloria_Lourdes.pdf",
+      "youtube": null,
+      "audios": []
+    },
+    {
+      "id": 5,
+      "titre": "Sanctus Liberia",
+      "reference1": "Sanctus Liberia",
+      "reference2": null,
+      "texte": "Sanctus Sanctus In excel sis",
+      "type_messe": "ORD",
+      "type_chant": "SCT",
+      "compositeur": "Robert Prizeman",
+      "harmonisation": null,
+      "partition": null,
+      "youtube": null,
+      "audios": [
+        {
+          "label": "Sanctus",
+          "src": "media/Audios/Sanctus.aac"
+        }
+      ],
+      "custom": {}
+    },
+    {
+      "id": 6,
+      "titre": "A mfumu",
+      "reference1": null,
+      "reference2": null,
+      "texte": null,
+      "type_messe": "ORD",
+      "type_chant": "KYR",
+      "compositeur": "Fred Olichet Biyela",
+      "harmonisation": "Fred Olichet Biyela",
+      "partition": null,
+      "youtube": null,
+      "audios": []
+    },
+    {
+      "id": 7,
+      "titre": "Mon âme a soif du dieu vivant",
+      "reference1": "PS_41",
+      "reference2": null,
+      "texte": "Mon âme a soif de Toi, Dieu vivant, Dieu très haut.Prends-moi, pacifie-moi, Seigneur mon Roi.Tu es toute ma joie, ô viens en moi!Mon âme a soif de Dieu,le Dieu vivant ;quand pourrai-je m’avancer,paraître face à Dieu ?Je conduisais vers la maison de mon Dieula multitude en fête,parmi les cris de joieet les actions de grâce.Envoie ta lumière et ta vérité :qu’elles guident mes paset me conduisent à ta montagne sainte,jusqu’en ta demeure.J’avancerai jusqu’à l’autel de Dieu,vers Dieu qui est toute ma joie ;je te rendrai grâce avec ma harpe,Dieu, mon Dieu.",
+      "type_messe": "ORD",
+      "type_chant": "PSM",
+      "compositeur": "Eric Lebrun",
+      "harmonisation": null,
+      "partition": null,
+      "youtube": null,
+      "audios": []
+    },
+    {
+      "id": 8,
+      "titre": "Saint Esprit, feu d'amour",
+      "reference1": null,
+      "reference2": null,
+      "texte": null,
+      "type_messe": "PTC",
+      "type_chant": "OFF",
+      "compositeur": "Fred Olichet Biyela",
+      "harmonisation": null,
+      "partition": "/Medias/PartitionsSR001",
+      "youtube": null,
+      "audios": []
+    },
+    {
+      "id": 9,
+      "titre": "A toi la gloire",
+      "reference1": null,
+      "reference2": "M_191",
+      "texte": "Strophe 11. À toi la gloire, ô ressuscité !À toi la victoire pour l'éternité !Brillant de lumière, l'ange est descendu,Il roule la pierre, du tombeau vaincu.RefrainÀ toi la gloire, ô ressuscité !À toi la victoire pour l'éternité !Strophe 22. Vois-le paraître: c'est lui, c'est Jésus,Ton Sauveur, ton Maître ! Oh ! ne doute plus !Sois dans l'allégresse, peuple du Seigneur,Et redis sans cesse que Christ est vainqueur.RefrainÀ toi la gloire, ô ressuscité !À toi la victoire pour l'éternité !Strophe 33. Craindrais-je encore ? Il vit à jamais,Celui que j'adore, le Prince de paix ;Il est ma victoire, mon puissant soutien,Ma vie et ma gloire: non, je ne crains rien.RefrainÀ toi la gloire, ô ressuscité !À toi la victoire pour l'éternité !",
+      "type_messe": "PAQ",
+      "type_chant": "ENV",
+      "compositeur": "G. F. Haendel",
+      "harmonisation": null,
+      "partition": "media/Partitions/M_191.pdf",
+      "youtube": "https://www.youtube.com/watch?v=WDmKcVfbodg&list=RDWDmKcVfbodg&start_radio=1",
+      "audios": []
+    },
+    {
+      "id": 10,
+      "titre": "Humblement dans le silence de mon cœur",
+      "reference1": null,
+      "reference2": "C00035",
+      "texte": "Refrain :Humblement, dans le silence de mon cœur,Je me donne à toi, mon Seigneur !Couplets :Par ton amour, fais-moi demeurer humble et petit devant toi.Enseigne-moi ta sagesse, Ô Dieu, viens habiter mon silence.Entre tes mains, je remets ma vie, ma volonté, tout mon être.Je porte en moi ce besoin d’amour, de me donner, de me livrer sans retour.Vierge Marie, garde mon chemin dans l’abandon, la confiance de l’amour",
+      "type_messe": null,
+      "type_chant": "COM",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Humblement_dans_le_silence.pdf",
+      "youtube": null,
+      "audios": [
+        {
+          "label": "Refrain",
+          "src": "media/Audios/Humblement-ref.aac"
+        },
+        {
+          "label": "Couplets — Soprano",
+          "src": "media/Audios/Humblement-couplets-soprane.aac"
+        },
+        {
+          "label": "Couplets — Alto",
+          "src": "media/Audios/Humblement-couplet-alto.aac"
+        },
+        {
+          "label": "Couplets — Ténor",
+          "src": "media/Audios/Humblement-couplets-tenor.aac"
+        },
+        {
+          "label": "Couplets — Basse",
+          "src": "media/Audios/Hublement-couplets-basse.aac"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "titre": "Alléluia de Pâques",
+      "reference1": null,
+      "reference2": null,
+      "texte": null,
+      "type_messe": "PAQ",
+      "type_chant": "ALL",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": null,
+      "youtube": null,
+      "audios": [
+        {
+          "label": "Alléluia",
+          "src": "media/Audios/alleluia-paques.aac"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "titre": "Couronnée d'étoiles",
+      "reference1": null,
+      "reference2": "IEV 14-10",
+      "texte": "R. Nous te saluons,\nÔ toi, Notre Dame,\nMarie, Vierge Sainte, que drape le soleil.\nCouronnée d’étoiles, la lune est sous tes pas,\nEn toi nous est donnée\nL’aurore du salut.\n\n1. Marie Ève nouvelle et joie de ton Seigneur,\nTu as donné naissance à Jésus le Sauveur.\nPar toi nous sont ouvertes les portes du jardin.\nGuide-nous en chemin, Étoile du Matin.\n\n2. Tu es restée fidèle, mère au pied de la croix.\nSoutiens notre espérance et garde notre foi.\nDu côté de ton Fils, tu as puisé pour nous,\nL’eau et le sang versés qui sauvent du péché.\n\n3. Quelle fut la joie d’Ève lorsque tu es montée,\nPlus haut que tous les anges, plus haut que les nuées.\nEt quelle est notre joie, douce Vierge Marie\nDe contempler en Toi la promesse de vie.\n\n4. Ô Vierge immaculée, préservée du péché,\nEn ton âme, en ton corps, tu entres dans les cieux.\nEmportée dans la gloire, sainte Reine des cieux,\nTu nous accueilleras un jour auprès de Dieu.",
+      "type_messe": "ORD",
+      "type_chant": "MAR",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Couronnee_d_etoile.pdf",
+      "youtube": null,
+      "audios": []
+    },
+    {
+      "id": 13,
+      "titre": "Si la mer se déchaine",
+      "reference1": null,
+      "reference2": null,
+      "texte": "1 - Si la mer se déchaîne, \nSi le vent souffle fort, \nSi la barque t'entraîne \nN'aie pas peur de la mort. (bis) \nRefrain : \nIl n'a pas dit que tu coulerais \nIl n'a pas dit que tu sombrerais \nIl a dit : \"Allons de l'autre bord\", \nAllons de l'autre bord. \n2 - Si ton cœur est en peine, \nSi ton corps est souffrant \nCrois en Jésus il t'aime, \nIl te donne sa paix. (bis) \n3 - Si un jour sur ta route, \nTu rencontres le mal, \nNe sois pas dans le doute, \nDieu aime ses enfants. (bis)",
+      "type_messe": null,
+      "type_chant": null,
+      "compositeur": "J.M Lelong",
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Si_la_mer_se_dechaine.pdf",
+      "youtube": null,
+      "audios": []
+    },
+    {
+      "id": 14,
+      "titre": "Ou sont amour et charité",
+      "reference1": null,
+      "reference2": "D511",
+      "texte": "Où sont amour et charité, \nDieu lui-même est présent, \nCar l'amour est de Dieu, \nCar Dieu est amour. \n1- Ce n'est pas nous qui avons aimé Dieu, \nMais c'est Lui qui nous a aimé le premier \nEt qui nous a envoyé son Fils \nEn victime offerte pour nos péchés. \n2- Si Dieu nous a aimé ainsi, \nNous devons nous-aussi nous aimer les uns les autres, \nDieu, personne ne l'a jamais contemplé, \nSi Nous nous aimons les uns les autres, Dieu demeure en nous. \n3- En ceci s'est manifesté l'amour de Dieu pour nous : \nDieu a envoyé son Fils unique dans le monde, \nAfin que nous vivions par Lui, \nIl nous a donné son Esprit. \n4- Nous avons reconnu l'amour de Dieu pour nous, \nEt nous y avons cru ; \nDieu est amour, \nCelui qui demeure dans l'amour demeure en Dieu. \n5- Il n'y a pas de crainte dans l'amour, \nLe parfait amour bannit la crainte ; \nQuant à nous, aimons, \nPuisque Lui nous a aimés le premier. \n6- Celui qui n'aime pas son frère qu'il voit \nNe saurait aimer le Dieu qu'il ne voit pas ; \nVoilà le commandement que nous avons reçu de Lui \nQue celui qui aime Dieu, aime aussi son frère.",
+      "type_messe": "MAR",
+      "type_chant": "ENT",
+      "compositeur": "Communauté Emmanuel",
+      "harmonisation": "E. Baranger",
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Ou_sont_amour_et_charite_Cte_Emmanuel.pdf",
+      "youtube": "https://www.youtube.com/watch?v=qesGwIZbb2o",
+      "audios": []
+    },
+    {
+      "id": 15,
+      "titre": "Mfumu yamba makabu",
+      "reference1": null,
+      "reference2": null,
+      "texte": "Ee Mfumue, yamba makabo *2\nYamba makabo ya kimenga na beto *2\nTala maboko na mono yo kele mpamba\nTala mono kimbeni, nsukami ya nene\nNki kima mono talenda pesa na ngeye *2\nMfumu e, mfumu e, *4\nEe mfumu e, yamba mampa *2\nYamba mampa ya kimenga na beto *2\nEe Mfumu e, yamba vino *2\nYamba vino ya kimenga na beto *2\nEe Mfumu e, yamba cholare *2\nYamba cholare ya kimenga na beto *2",
+      "type_messe": "ORD",
+      "type_chant": "OFF",
+      "compositeur": "Bwanana",
+      "harmonisation": null,
+      "partition": "https://www.youtube.com/watch?v=1NErUdR5Qd0&list=RD1NErUdR5Qd0&start_radio=1",
+      "youtube": "https://www.youtube.com/watch?v=1NErUdR5Qd0&list=RD1NErUdR5Qd0&start_radio=1",
+      "audios": []
+    },
+    {
+      "id": 16,
+      "titre": "Misa pro europa",
+      "reference1": null,
+      "reference2": null,
+      "texte": "1 et 2 – Agnus dei\nQui tollis peccata mundi\nMiserere nobis, miserere nobis, miserere nobis. (bis)\n\n3 – Agnus dei\nQui tollis peccata mundi\nDona nobis pacem, dona nobis pacem, dona nobis pacem (bis)",
+      "type_messe": "ORD",
+      "type_chant": "AGD",
+      "compositeur": "Jacques Berthier",
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Agnus Dei Pro Europa -4 vx mixtes Berthier.pdf",
+      "youtube": "https://youtu.be/YT068z80p-Q?si=Iz5HgqKlPiIUUN93",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 17,
+      "titre": "Le Seigneur nous a aimé",
+      "reference1": "D108",
+      "reference2": null,
+      "texte": "Refrain\nC´est mon corps : prenez et mangez.\nC´est mon sang : prenez et buvez.\nCar je suis la vie et je suis l´amour.\nÔ Seigneur, emporte-nous dans ton amour !\n\n1\nLe Seigneur nous a aimés comme on n´a jamais aimé.\nIl nous guide chaque jour comme une étoile dans la nuit.\nQuand nous partageons le pain, il nous donne son amour :\nC´est le pain de l´amitié, le pain de Dieu.\n2\nLe Seigneur nous a aimés comme on n´a jamais aimé.\nUn enfant nous est donné dans cette nuit de Bethléem.\nLes bergers l´ont reconnu et les Mages sont venus :\nIls ont vu le Fils de Dieu petit enfant.\n3\nLe Seigneur nous a aimés comme on n´a jamais aimé.\nPour les gens de son village, c´est le fils du charpentier.\nIl travaille de ses mains comme font tous ses amis :\nIl connaît le dur labeur de chaque jour.\n4\nLe Seigneur nous a aimés comme on n´a jamais aimé.\nAu hasard de ses rencontres par les villes et les cités\nIl révèle son amour et nous parle de son Père\nEt chacun retrouve espoir en l´écoutant.\n5\nLe Seigneur nous a aimés comme on n´a jamais aimé.\nSon Amour était si grand qu´il en mourut sur une croix.\nSon Amour était si fort qu´il triompha de la mort.\nIl sortit de son tombeau libre et vainqueur.\n6\nLe Seigneur nous a aimés comme on n´a jamais aimé.\nIl rassemble tous les hommes et les fait vivre de sa vie\nEt tous les chrétiens du monde sont les membres de son Corps.\nRien ne peut les séparer de son Amour.",
+      "type_messe": "ORD",
+      "type_chant": "COM",
+      "compositeur": "Maurice Debaisieux",
+      "harmonisation": "Maurice Debaisieux",
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\le_seigneur_nous_a_aimes-partition.pdf",
+      "youtube": "https://youtu.be/NSRMM2B9E18?si=Mve8gsPakXa9q9Ue",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 18,
+      "titre": "Pawuni na ngai ya talo",
+      "reference1": null,
+      "reference2": null,
+      "texte": null,
+      "type_messe": null,
+      "type_chant": null,
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": null,
+      "youtube": "https://youtu.be/D5hiTPWqtg4?si=wx-iDrXBCKNZs3pk",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 19,
+      "titre": "Dieu nous accueille",
+      "reference1": "A 174",
+      "reference2": null,
+      "texte": "Ref : \nDieu nous accueille en sa maison \nDieu nous invite à son festin : \nJour d'allégresse et jour de joie \nAlleluia !  \n1 - O quelle joie quand on m'a dit : \n\" Approchons-nous de sa maison, \nDans la cité du Dieu vivant.\" \n2 - Jérusalem, réjouis-toi, \nCar le Seigneur est avec toi : \nPour ton bonheur il t'a choisie. \n3 - Criez de joie pour notre Dieu \nChantez pour lui, car il est bon, \nCar éternel est son amour. \n4 - Avec Jésus nous étions morts, \nAvec Jésus nous revivons. \nNous avons part à sa clarté. \n5 - Approchons-nous de ce repas \nOù Dieu convie tous ses enfants, \nMangeons le pain qui donne vie. \n6 - \" Si tu savais le don de Dieu \" \nSi tu croyais en son amour, \nTu n'aurais plus de peur en toi. \n7 - Que Jésus-Christ nous garde tous \nDans l'unité d'un même Corps, \nNous qui mangeons le même pain.",
+      "type_messe": "ORD",
+      "type_chant": "ENT",
+      "compositeur": "JP.Lecot",
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Dieu nous accueille en sa maison A 174.pdf",
+      "youtube": "https://youtu.be/lBkptqyTOqA?si=YQZf86iFzRzFJSOo",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 20,
+      "titre": "Yisa Yesu",
+      "reference1": null,
+      "reference2": null,
+      "texte": null,
+      "type_messe": "ORD",
+      "type_chant": "COM",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": null,
+      "youtube": "https://youtu.be/cXa6iDuSwSc?si=vzwb0EhgC1XlkDYf",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 21,
+      "titre": "Credo-III",
+      "reference1": null,
+      "reference2": null,
+      "texte": "Credo in unum Deum, Patrem omnipotentem, factorem caeli et terrae, visibilium omnium et invisibilium.\nEt in unum Dominum Jesum Christum Filium Dei unigenitum.\nEt ex Patre natum ante omnia saecula.\nDeum de Deo, lumen de lumine, Deum verum de Deo vero.\nGenitum, non factum, consubstantialem Patri : per quem omnia facta sunt.\nQui propter nos homines, et propter nostram salutem decendit de caelis.\nEt incarnatus est de Spiritu sancto ex Maria Virgine : Et homo factus est.\nCrucifixus etiam pro nobis : sub Pontio Pilato passus, et sepultus est.\nEt resurrexit tertia die, secundum Scripturas.\nEt ascendit in caelum : sedet ad dexteram Patris.\nEt iterum venturus est cum gloria, judicare vivos et mortuos : cujus regni non erit finis.\nEt in Spiritum sanctum, Dominum, et vivificantem : qui ex Patre Filioque procedit.\nQui cum Patre et Filio simul adoratur, et conglorificatur : qui locutus est per Prophetas.\nEt unam, sanctam, catholicam, et apostolicam Ecclesiam.\nConfiteor unum baptisma in remissionem peccatorum.\nEt expecto resurrectionem mortuorum. Et vitam venturi saeculi.\n\nAmen.",
+      "type_messe": "ORD",
+      "type_chant": "CDO",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Credo-III.pdf",
+      "youtube": null,
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 22,
+      "titre": "Accueil au creux de tes mains",
+      "reference1": null,
+      "reference2": null,
+      "texte": "Accueil au creux de tes mains, la prière de tes enfants.",
+      "type_messe": "ORD",
+      "type_chant": "PU",
+      "compositeur": "GilbertGafah",
+      "harmonisation": null,
+      "partition": "C:\\Cantoral\\Medias\\Partitions\\Accueille aux creux de tes mains - 4 voix mixtes.pdf",
+      "youtube": "https://youtu.be/kCFlwRBS6dg?si=vQbCoSCizpVT89K2",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 23,
+      "titre": "C'est par ta grâce",
+      "reference1": null,
+      "reference2": null,
+      "texte": "1.Tout mon être cherche,\nD´où viendra le secours,\nMon secours est en Dieu,\nQui a créé les cieux.\nDe toute détresse,\nIl vient me libérer,\nLui le Dieu fidèle\nDe toute éternité.\n\nR. C´est par ta grâce,\nQue je peux m´approcher de toi,\nC´est par ta grâce,\nQue je suis racheté.\nTu fais de moi,\nUne nouvelle création,\nDe la mort, tu m´as sauvé\nPar ta résurrection.\n\n2. Tu connais mes craintes,\nTu connais mes pensées.\nAvant que je naisse,\nTu m´avais appelé.\nToujours tu pardonnes,\nD´un amour infini.\nTa miséricorde\nEst un chemin de vie.",
+      "type_messe": "ORD",
+      "type_chant": "ATG",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\c_est_par_ta_grace.pdf",
+      "youtube": "https://youtu.be/7DrIpvwrL0k?si=NjX3WH4zR4sYXrgV",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 24,
+      "titre": "Amen (9x)",
+      "reference1": null,
+      "reference2": null,
+      "texte": null,
+      "type_messe": null,
+      "type_chant": "DOXO",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": null,
+      "youtube": "https://youtu.be/deH1ioxmb1U?si=672TiFgM9M2ruR-o",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 25,
+      "titre": "Nzapati éya na mo",
+      "reference1": null,
+      "reference2": null,
+      "texte": "Nzapati éya na mo ayéti e kwé",
+      "type_messe": "ORD",
+      "type_chant": null,
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": null,
+      "youtube": null,
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 26,
+      "titre": "Ecoute",
+      "reference1": "DEV129 / D14-50",
+      "reference2": null,
+      "texte": "1\nEcoute,\nEntends la voix de Dieu\nA celui qui a soif,\nIl vient se révéler\nEcoute,\nQue tout en toi se taise,\nQue tout en toi s'apaise\nEt que parle ton Dieu.\n\n2\nEcoute,\nLaisse là ton souci\nQue se taisent les mots\nQue s'éloignent les cris\nEcoute\nDieu sème sans compter\nSa parole est le pain\nQui vient nous rassasier\n\n3\nEcoute\nDieu t'invite au désert\nAu silence du coeur\nA la source sans fin\nEcoute\nIl se tient à la porte\nIl frappe et bienheureux\nCelui qui ouvrira\n\n4\nEcoute\nDieu passe près de toi\nDans la brise légère\nDans le vent de l'Esprit\nEcoute\nTu es aimé de Dieu\nTu es choisi de Dieu\nIl veut pour toi la Vie",
+      "type_messe": "ORD",
+      "type_chant": "COM",
+      "compositeur": "Communauté du Chemin Neuf",
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Ecoute-entends-la-voix-de-Dieu.pdf",
+      "youtube": "https://youtu.be/sqx1oIHYf04?si=cytqRwi7-7P2VU8B",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 28,
+      "titre": "Le Seigneur est mon berger",
+      "type_chant": "PSM",
+      "reference1": null,
+      "reference2": null,
+      "texte": "Le Seigneur est mon berger :\nJe ne manque de rien.\nSur des prés d’herbe fraîche,\nIl me fait reposer.\n\nIl me mène vers les eaux tranquilles\nEt me fait revivre ;\nIl me conduit par le juste chemin\nPour l’honneur de son nom.\n\nSi je traverse les ravins de la mort,\nJe ne crains aucun mal,\nCar tu es avec moi :\nTon bâton me guide et me rassure.\n\nTu prépares la table pour moi\nDevant mes ennemis ;\nTu répands le parfum sur ma tête,\nMa coupe est débordante.\n\nGrâce et bonheur m’accompagnent\nTous les jours de ma vie ;\nJ’habiterai la maison du Seigneur\nPour la durée de mes jours.",
+      "type_messe": "CRM",
+      "compositeur": "J.Gélineau-J.P.Lécot",
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Ps_022 LeSeigneurEstMonBerger.pdf",
+      "youtube": "https://youtu.be/KYh9uZS4Jk0?si=8yBk44DrajzSgsxt",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 29,
+      "titre": "Jésus Berger de toutes humanité",
+      "reference1": "R310-1 / G310-1",
+      "reference2": null,
+      "texte": "1\nJésus, Berger de toute humanité,\nTu es venu chercher ceux qui étaient perdus.\n\nRefrain\nPrends pitié de nous, fais-nous revenir,\nFais-nous revenir à toi ! Prends pitié de nous !\n\n2\nJésus, Berger de toute humanité,\nTu es venu guérir ceux qui étaient malades.\n\n3\nJésus, Berger de toute humanité,\nTu es venu sauver ceux qui étaient pécheurs.",
+      "type_messe": "ORD",
+      "type_chant": "ENT",
+      "compositeur": "Didier Rimaud",
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Jesus_Berger_de_toute_humanite.pdf",
+      "youtube": "https://youtu.be/eNkikPCoOhI?si=wEF8LRqkBSqfNTWI",
+      "audios": [],
+      "custom": {}
+    },
+    {
+      "id": 30,
+      "titre": "Anamneses_11_chants_unisson",
+      "reference1": null,
+      "reference2": null,
+      "texte": "Partition unisson de 11 Anamnèses à choisir lors de la programmation",
+      "type_messe": "ORD",
+      "type_chant": "ANM",
+      "compositeur": null,
+      "harmonisation": null,
+      "partition": "C:\\Liturgie\\Medias\\Partitions\\Anamnese_11.pdf",
+      "youtube": null,
+      "audios": [],
+      "custom": {}
+    }
+  ],
+  "musiciens": [
+    {
+      "id": 1,
+      "nom": "Dupond",
+      "prenom": "Marc",
+      "date_arrivee": "2020-01-01",
+      "instrument": "GIT",
+      "clochet": 1
+    },
+    {
+      "id": 2,
+      "nom": "Busson",
+      "prenom": "Valerie",
+      "date_arrivee": "2023-05-03",
+      "instrument": "FLT",
+      "clochet": 1
+    },
+    {
+      "id": 3,
+      "nom": "Avio",
+      "prenom": "Vino",
+      "date_arrivee": "2001-07-14",
+      "instrument": "ORG",
+      "clochet": 2
+    },
+    {
+      "id": 4,
+      "nom": "Labelle",
+      "prenom": "Paty",
+      "date_arrivee": "1995-09-18",
+      "instrument": "TBN",
+      "clochet": 1
+    },
+    {
+      "id": 5,
+      "nom": "Libe",
+      "prenom": "Lula",
+      "date_arrivee": "1999-12-22",
+      "instrument": "PIA",
+      "clochet": 2
+    },
+    {
+      "id": 6,
+      "nom": "Abé",
+      "prenom": "Lianne",
+      "date_arrivee": "2023-11-26",
+      "instrument": "SAX",
+      "clochet": 2
+    },
+    {
+      "id": 7,
+      "nom": "Jard",
+      "prenom": "Inola",
+      "date_arrivee": "2025-01-19",
+      "instrument": "JMB",
+      "clochet": 1
+    },
+    {
+      "id": 8,
+      "nom": "Mbo",
+      "prenom": "Télia",
+      "date_arrivee": "2020-02-15",
+      "instrument": "FTRV",
+      "clochet": 2
+    },
+    {
+      "id": 9,
+      "nom": "Bazil",
+      "prenom": "Baver",
+      "date_arrivee": "2001-02-02",
+      "instrument": "CLA",
+      "clochet": 1
+    }
+  ],
+  "animateurs": [
+    {
+      "id": 1,
+      "nom": "AUBRI",
+      "prenom": "Martine",
+      "date_arrivee": "2023-12-10",
+      "clochet": 2
+    },
+    {
+      "id": 2,
+      "nom": "CAMUS",
+      "prenom": "Paul",
+      "date_arrivee": "2026-05-04",
+      "clochet": 1
+    },
+    {
+      "id": 3,
+      "nom": "MALAMBA",
+      "prenom": "Niska",
+      "date_arrivee": "2020-02-01",
+      "clochet": 1
+    },
+    {
+      "id": 4,
+      "nom": "PERTUI",
+      "prenom": "Perpétu",
+      "date_arrivee": "1998-11-17",
+      "clochet": 2
+    },
+    {
+      "id": 5,
+      "nom": "VACOUM",
+      "prenom": "Youli",
+      "date_arrivee": "2021-01-01",
+      "clochet": 2
+    },
+    {
+      "id": 6,
+      "nom": "SENSEY",
+      "prenom": "Josh",
+      "date_arrivee": "2000-09-19",
+      "clochet": 1
+    },
+    {
+      "id": 7,
+      "nom": "HONI",
+      "prenom": "Liyam",
+      "date_arrivee": "2020-03-01",
+      "clochet": 1
+    },
+    {
+      "id": 8,
+      "nom": "BALA",
+      "prenom": "Bani",
+      "date_arrivee": "2019-01-15",
+      "clochet": 1
+    },
+    {
+      "id": 10,
+      "nom": "Mun",
+      "prenom": "Dilia",
+      "date_arrivee": null,
+      "clochet": 1,
+      "custom": {}
+    }
+  ],
+  "instruments": {
+    "GIT": "Guitare",
+    "FLT": "Flûte à bec",
+    "ORG": "Orgue",
+    "TBN": "Trombone",
+    "PIA": "Piano",
+    "SAX": "Saxophone",
+    "JMB": "Djembé",
+    "TRV": "Flûte traversière",
+    "CLA": "Clavier",
+    "FTRV": "Flûte traversière"
+  },
+  "type_messe": {
+    "ORD": "Ordinaire",
+    "NOL": "Noël",
+    "CRM": "Carême",
+    "PAQ": "Pâques",
+    "PTC": "Pentecôte",
+    "TSN": "Toussaint",
+    "BTM": "Baptême",
+    "ADG": "Action de grâce",
+    "MAR": "Mariage",
+    "BEN": "Bénédiction Nuptiale",
+    "OBQ": "Obsèques",
+    "COM": "Première Communion",
+    "PRF": "Profession de foi",
+    "ODN": "Ordination"
+  },
+  "type_chant": {
+    "ENT": "Ouverture",
+    "KYR": "Kyrié",
+    "GLO": "Gloria",
+    "PSM": "Psaume",
+    "ALL": "Acclamation",
+    "CDO": "Credo",
+    "PU": "Prière Universelle",
+    "OFF": "Offertoire",
+    "SCT": "Sanctus",
+    "ANM": "Anamnèse",
+    "DOXO": "Doxologie",
+    "NP": "Notre Père",
+    "AGD": "Agnus Dei",
+    "COM": "Communion",
+    "ATG": "Action de Grâce",
+    "ENV": "Envoie",
+    "MAR": "Chant à Marie"
+  },
+  "ordinaire_messe": {
+    "JEA": "Messe de St Jean",
+    "SFX": "Messe de St François Xavier",
+    "BBR": "Messe du Bon Berger",
+    "TRT": "Messe de la Trinité",
+    "REU": "Messe de La réunion",
+    "PLR": "Messe des Pélerins",
+    "PAU": "Messe de St Paul",
+    "PAR": "Messe Du Partage"
+  },
+  "clochets": {
+    "1": "Cesson_Sevigne",
+    "2": "Thorigne_Fouillard"
+  },
+  "programmes": [
+    {
+      "id": 1,
+      "titre": "Célébration Mariage à Bevos le 02 août 2026 à 11h",
+      "date": "2026-08-02",
+      "lieu": "Bevos",
+      "type_messe": "MAR",
+      "ordinaire_messe": "SFX",
+      "lecture": "Allaince, mariage, union",
+      "slots": {
+        "ENT": "1",
+        "KYR": "ORDINAIRE",
+        "GLO": "ORDINAIRE",
+        "PSM": "3",
+        "ALL": "ORDINAIRE",
+        "OFF": "8",
+        "SCT": "ORDINAIRE",
+        "ANM": "ORDINAIRE",
+        "AGD": "ORDINAIRE",
+        "COM": "10",
+        "ENV": "9",
+        "CDO": "21",
+        "PU": "22",
+        "DOXO": "24",
+        "ATG": "23"
+      },
+      "statut": "validé"
+    },
+    {
+      "id": 2,
+      "titre": "Célébration Ordinaire à Cesson le 09 août 2026 à 11h",
+      "date": "2026-08-09",
+      "lieu": "Cesson",
+      "type_messe": "ORD",
+      "ordinaire_messe": "TRT",
+      "lecture": "MArchez et portez la bonne parole a vos frères",
+      "slots": {
+        "ENT": "1",
+        "KYR": "ORDINAIRE",
+        "GLO": "ORDINAIRE",
+        "PSM": "7",
+        "ALL": "ORDINAIRE",
+        "OFF": "15",
+        "SCT": "ORDINAIRE",
+        "ANM": "ORDINAIRE",
+        "AGD": "ORDINAIRE",
+        "COM": "2",
+        "ENV": "9",
+        "CDO": "MENTION",
+        "PU": "22",
+        "DOXO": "MENTION",
+        "NP": "MENTION",
+        "ATG": "23"
+      },
+      "statut": "validé"
+    },
+    {
+      "id": 3,
+      "titre": "Célébration Ordinaire à Cesson le 16 août 2026 à 11h",
+      "date": "2026-08-16",
+      "lieu": "Cesson",
+      "type_messe": "ORD",
+      "ordinaire_messe": null,
+      "lecture": "Dieu Veille",
+      "slots": {
+        "ENT": "19",
+        "KYR": "6",
+        "GLO": "4",
+        "PSM": "3",
+        "ALL": "11",
+        "OFF": "15",
+        "SCT": "5",
+        "AGD": "16",
+        "COM": "2",
+        "ENV": "9",
+        "CDO": "MENTION",
+        "PU": "22",
+        "ANM": null,
+        "DOXO": "MENTION",
+        "ATG": null,
+        "NP": "MENTION"
+      },
+      "statut": "brouillon"
+    },
+    {
+      "id": 4,
+      "titre": "Célébration Ordinaire à — le 17 octobre 2026 à 11h",
+      "date": "2026-10-17",
+      "lieu": "",
+      "type_messe": "ORD",
+      "ordinaire_messe": "TRT",
+      "lecture": "MArchez et portez la bonne parole a vos frères",
+      "slots": {
+        "ENT": 1,
+        "KYR": "ORDINAIRE",
+        "GLO": "ORDINAIRE",
+        "PSM": 7,
+        "ALL": "ORDINAIRE",
+        "OFF": 15,
+        "SCT": "ORDINAIRE",
+        "ANM": "ORDINAIRE",
+        "AGD": "ORDINAIRE",
+        "COM": 2,
+        "ENV": 9
+      },
+      "statut": "brouillon"
+    },
+    {
+      "id": 5,
+      "titre": "Célébration Ordinaire à Cesson_Sevigne le 30 août 2026 à 11h",
+      "date": "2026-08-30",
+      "lieu": "1",
+      "type_messe": "ORD",
+      "ordinaire_messe": "JEA",
+      "lecture": null,
+      "slots": {
+        "ENT": "1",
+        "KYR": "ORDINAIRE",
+        "GLO": "ORDINAIRE",
+        "PSM": "7",
+        "ALL": "ORDINAIRE",
+        "CDO": "MENTION",
+        "PU": "22",
+        "OFF": "15",
+        "SCT": "ORDINAIRE",
+        "ANM": "ORDINAIRE",
+        "DOXO": "MENTION",
+        "NP": "MENTION",
+        "AGD": "ORDINAIRE",
+        "COM": "2",
+        "ATG": "23",
+        "ENV": "9"
+      },
+      "statut": "brouillon"
+    },
+    {
+      "id": 6,
+      "titre": "Célébration Ordinaire à Cesson_Sevigne le 30 août 2026 à 11h",
+      "date": "2026-08-30",
+      "lieu": "1",
+      "type_messe": "ORD",
+      "ordinaire_messe": "BBR",
+      "lecture": "bon berger humanité",
+      "slots": {
+        "ENT": "14",
+        "KYR": "ORDINAIRE",
+        "GLO": "ORDINAIRE",
+        "PSM": "28",
+        "ALL": "ORDINAIRE",
+        "CDO": "MENTION",
+        "PU": "22",
+        "OFF": "15",
+        "SCT": "ORDINAIRE",
+        "ANM": "ORDINAIRE",
+        "DOXO": "MENTION",
+        "NP": "MENTION",
+        "AGD": "ORDINAIRE",
+        "COM": "2",
+        "ATG": "23",
+        "ENV": "9"
+      },
+      "statut": "validé"
+    },
+    {
+      "id": 7,
+      "titre": "Célébration Ordinaire à Cesson_Sevigne le 30 août 2026 à 11h",
+      "date": "2026-08-30",
+      "lieu": "1",
+      "type_messe": "ORD",
+      "ordinaire_messe": "BBR",
+      "lecture": "berger humilité sauve suivre",
+      "slots": {
+        "ENT": "29",
+        "KYR": "ORDINAIRE",
+        "GLO": "ORDINAIRE",
+        "PSM": "28",
+        "ALL": "ORDINAIRE",
+        "CDO": "MENTION",
+        "PU": "22",
+        "OFF": "15",
+        "SCT": "ORDINAIRE",
+        "ANM": "ORDINAIRE",
+        "DOXO": "MENTION",
+        "NP": "MENTION",
+        "AGD": "ORDINAIRE",
+        "COM": "26",
+        "ATG": "23",
+        "ENV": "9"
+      },
+      "statut": "brouillon"
+    }
+  ],
+  "calendrier": [
+    {
+      "id": 1,
+      "date": "2026-08-02",
+      "horaire": "10h30",
+      "lieu": "2",
+      "evenement": "ORD",
+      "organiste": "3",
+      "chantre": "4",
+      "programmeId": null,
+      "custom": {}
+    },
+    {
+      "id": 2,
+      "date": "2026-08-09",
+      "horaire": "11",
+      "lieu": "1",
+      "evenement": null,
+      "organiste": "2",
+      "chantre": "3",
+      "custom": {},
+      "programmeId": 2
+    },
+    {
+      "id": 3,
+      "date": "2026-08-16",
+      "horaire": "11",
+      "lieu": "2",
+      "evenement": null,
+      "organiste": "2",
+      "chantre": "5",
+      "custom": {}
+    },
+    {
+      "id": 4,
+      "date": "2026-08-23",
+      "horaire": "11",
+      "lieu": "1",
+      "evenement": "ORD",
+      "organiste": "4",
+      "chantre": "2",
+      "custom": {}
+    },
+    {
+      "id": 5,
+      "date": "2026-11-01",
+      "horaire": "11",
+      "lieu": "2",
+      "evenement": "ORD",
+      "organiste": "1",
+      "chantre": null,
+      "custom": {}
+    },
+    {
+      "id": 6,
+      "date": "2026-10-17",
+      "horaire": "11",
+      "lieu": "2",
+      "evenement": null,
+      "organiste": "4",
+      "chantre": "1",
+      "custom": {}
+    }
+  ],
+  "notifications": [],
+  "nextChantId": 31,
+  "nextMusicienId": 10,
+  "nextAnimateurId": 11,
+  "nextProgId": 8,
+  "schema": {
+    "chants": [],
+    "musiciens": [],
+    "animateurs": [],
+    "calendrier": []
+  },
+  "noOffice": [
+    {
+      "date": "2026-07-31",
+      "lieu": "2"
+    },
+    {
+      "date": "2026-07-31",
+      "lieu": "1"
+    },
+    {
+      "date": "2026-08-07",
+      "lieu": "1"
+    },
+    {
+      "date": "2026-08-07",
+      "lieu": "2"
+    }
+  ]
+}
