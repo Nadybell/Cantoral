@@ -214,12 +214,15 @@ function toast(msg) {
 function render() {
   const app = document.getElementById('app');
   if (!ROLE) {
-    const stray = document.getElementById('vacant-popup-overlay');
-    if (stray) stray.remove();
+    ['vacant-popup-overlay', 'incomplete-chants-overlay'].forEach(id => { const el = document.getElementById(id); if (el) el.remove(); });
     app.innerHTML = renderLogin();
     return;
   }
   const { page, param } = currentRoute();
+  if (page === 'chants' && !param && window._lastPage !== 'chants') {
+    setTimeout(showIncompleteChantsPopupIfNeeded, 0);
+  }
+  window._lastPage = page;
   app.innerHTML = `
     ${renderSidebar(page)}
     <main>
@@ -259,6 +262,50 @@ function selectRole(r) {
   render();
   showVacantPopupIfNeeded();
 }
+function chantHasMedia(c) {
+  return !!c.partition || (c.audios && c.audios.length > 0) || !!c.youtube;
+}
+function chantIsDocComplete(c) {
+  return chantHasMedia(c) && !!c.texte;
+}
+function computeIncompleteChants() {
+  return DB.chants.filter(c => !chantIsDocComplete(c)).map(c => {
+    const missing = [];
+    if (!chantHasMedia(c)) missing.push('partition, audio ou vidéo');
+    if (!c.texte) missing.push('texte');
+    return { chant: c, missing: missing.join(' et ') };
+  });
+}
+function showIncompleteChantsPopupIfNeeded() {
+  if (!can('edit')) return;
+  const list = computeIncompleteChants();
+  if (!list.length) return;
+  const existing = document.getElementById('incomplete-chants-overlay');
+  if (existing) existing.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'incomplete-chants-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(43,36,29,0.5);z-index:997;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML = `
+    <div style="background:var(--paper);border:1px solid var(--line-strong);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,0.28);padding:24px;max-width:440px;width:90%;max-height:80vh;overflow:auto;">
+      <div style="text-align:center;">
+        <div style="font-size:28px;line-height:1;margin-bottom:8px;">⚠</div>
+        <b style="font-family:'Fraunces',serif;font-size:18px;">Chants incomplets</b>
+        <p class="muted" style="margin:6px 0 14px;font-size:13px;">${list.length} chant(s) sans partition/audio/vidéo, ou sans texte. Cliquez sur un chant pour le compléter.</p>
+      </div>
+      <div class="chant-list">
+        ${list.map(({chant,missing}) => `
+          <div class="chant-row" onclick="document.getElementById('incomplete-chants-overlay').remove();nav('#/chants/${chant.id}')" style="cursor:pointer;">
+            <div class="rib" style="background:var(--gold)"></div>
+            <div style="flex:1;">
+              <div class="chant-title" style="font-size:14px;">${esc(chant.titre)}</div>
+              <div class="chant-meta">Manque : ${esc(missing)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <button class="primary" style="margin-top:16px;width:100%;" onclick="document.getElementById('incomplete-chants-overlay').remove()">Fermer</button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
 function showVacantPopupIfNeeded() {
   if (!can('edit')) return;
   const count = computeVacantDates(8).length;
@@ -284,8 +331,7 @@ function logout() {
   ROLE = null;
   localStorage.removeItem('cantoral_role');
   location.hash = '';
-  const stray = document.getElementById('vacant-popup-overlay');
-  if (stray) stray.remove();
+  ['vacant-popup-overlay', 'incomplete-chants-overlay'].forEach(id => { const el = document.getElementById(id); if (el) el.remove(); });
   render();
 }
 function confirmLogout() {
@@ -863,6 +909,7 @@ function pageProgrammeForm() {
   const prefillDate = window._prefillProgDate || todayISO();
   const prefillLieu = window._prefillProgLieu || Object.keys(DB.clochets)[0];
   window._prefillProgDate = null; window._prefillProgLieu = null;
+  setTimeout(checkDateLieuConflict, 0);
   return `
   <div class="page-head">
     <div>
@@ -880,7 +927,7 @@ function pageProgrammeForm() {
       </select>
     </div>
     <div class="grid3">
-      <div class="field"><label>Date de la messe *</label><input type="date" id="pf-date" value="${prefillDate}" oninput="updateProgTitrePlaceholder()"></div>
+      <div class="field"><label>Date de la messe *</label><input type="date" id="pf-date" value="${prefillDate}" oninput="updateProgTitrePlaceholder();checkDateLieuConflict()"></div>
       <div class="field"><label>Type de messe</label>
         <select id="pf-typemesse" onchange="updateProgTitrePlaceholder()"><option value="">—</option>${Object.entries(DB.type_messe).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select>
       </div>
@@ -890,21 +937,37 @@ function pageProgrammeForm() {
     </div>
     <div class="field"><label>Titre du programme</label><input id="pf-titre" placeholder="${esc(defaultProgTitre(prefillDate, '', clochetLabel(prefillLieu)))}"></div>
     <div class="field"><label>Lieu (clocher)</label>
-      <select id="pf-lieu" onchange="updateProgTitrePlaceholder()">${Object.entries(DB.clochets).map(([k,v])=>`<option value="${k}" ${String(prefillLieu)===String(k)?'selected':''}>${v}</option>`).join('')}</select>
+      <select id="pf-lieu" onchange="updateProgTitrePlaceholder();checkDateLieuConflict()">${Object.entries(DB.clochets).map(([k,v])=>`<option value="${k}" ${String(prefillLieu)===String(k)?'selected':''}>${v}</option>`).join('')}</select>
     </div>
+    <div id="pf-date-warning"></div>
     <div class="field">
       <label>Texte de la lecture / évangile du jour <span class="muted">(collé manuellement — l’outil se connecterait normalement à evangeli.net)</span></label>
       <textarea id="pf-lecture" rows="5" placeholder="Collez ici le texte de la lecture ou de l’évangile du jour pour affiner la proposition de chants…"></textarea>
     </div>
-    <button class="primary" onclick="generateProgramme()">Proposer les chants</button>
+    <button class="primary" id="pf-generate-btn" onclick="generateProgramme()">Proposer les chants</button>
   </div>
   <div id="prog-gen-result"></div>
   `;
 }
+function checkDateLieuConflict() {
+  const dateEl = document.getElementById('pf-date'), lieuEl = document.getElementById('pf-lieu');
+  const warnEl = document.getElementById('pf-date-warning'), btn = document.getElementById('pf-generate-btn');
+  if (!dateEl || !lieuEl || !warnEl) return;
+  const date = dateEl.value, lieu = lieuEl.value;
+  const dupId = Number(document.getElementById('pf-duplicate') ? document.getElementById('pf-duplicate').value : 0);
+  const conflict = DB.programmes.find(p => p.date === date && String(p.lieu||'') === String(lieu||'') && p.id !== dupId);
+  if (conflict) {
+    warnEl.innerHTML = `<p style="color:#8a2b2b;font-size:12.5px;margin:6px 0 0;">⚠ Un programme existe déjà à cette date pour ${esc(clochetLabel(lieu))} : « ${esc(conflict.titre)} ». Choisissez une autre date ou un autre lieu.</p>`;
+    if (btn) btn.disabled = true;
+  } else {
+    warnEl.innerHTML = '';
+    if (btn) btn.disabled = false;
+  }
+}
 
 function duplicateProgramme() {
   const id = Number(document.getElementById('pf-duplicate').value);
-  if (!id) { window._duplicateSourceDate = null; document.getElementById('prog-gen-result').innerHTML = ''; return; }
+  if (!id) { window._duplicateSourceDate = null; document.getElementById('prog-gen-result').innerHTML = ''; checkDateLieuConflict(); return; }
   const src = DB.programmes.find(p => p.id === id);
   if (!src) return;
   window._duplicateSourceDate = src.date;
@@ -914,6 +977,7 @@ function duplicateProgramme() {
   if (src.lieu) document.getElementById('pf-lieu').value = src.lieu;
   document.getElementById('pf-lecture').value = src.lecture || '';
   updateProgTitrePlaceholder();
+  checkDateLieuConflict();
   renderDuplicatePreview(src);
   toast('Programme dupliqué — choisissez une nouvelle date puis enregistrez');
 }
@@ -955,7 +1019,13 @@ function generateProgramme() {
   window._duplicateSourceDate = null;
   const dupSel = document.getElementById('pf-duplicate');
   if (dupSel) dupSel.value = '';
+  checkDateLieuConflict();
   const date = document.getElementById('pf-date').value;
+  const lieuCheck = document.getElementById('pf-lieu').value;
+  if (DB.programmes.some(p => p.date === date && String(p.lieu||'') === String(lieuCheck||''))) {
+    toast('Un programme existe déjà à cette date pour ce lieu !');
+    return;
+  }
   const typeMesse = document.getElementById('pf-typemesse').value;
   const ordinaire = document.getElementById('pf-ordinaire').value;
   const lecture = document.getElementById('pf-lecture').value.trim();
@@ -1046,6 +1116,10 @@ function saveProgramme(date, typeMesse) {
     return;
   }
   const lieu = document.getElementById('pf-lieu').value;
+  if (DB.programmes.some(p => p.date === date && String(p.lieu||'') === String(lieu||''))) {
+    toast('Un programme existe déjà à cette date pour ce lieu !');
+    return;
+  }
   const titre = document.getElementById('pf-titre').value.trim() || defaultProgTitre(date, typeMesse, clochetLabel(lieu));
   const ordinaire = document.getElementById('pf-ordinaire').value;
   const lecture = document.getElementById('pf-lecture').value.trim();
@@ -1220,7 +1294,7 @@ function saveProgrammeSlots(id) {
   persist(); toast('Programme mis à jour'); render();
 }
 function isChantComplete(chant) {
-  return !!chant && !!chant.partition && ((chant.audios && chant.audios.length > 0) || !!chant.youtube);
+  return !!chant && chantIsDocComplete(chant);
 }
 function programmeIncompleteChants(p) {
   const out = [];
@@ -1231,8 +1305,8 @@ function programmeIncompleteChants(p) {
     if (!chant) { out.push({ slot: slot.label, titre: '(chant supprimé)', reason: 'chant introuvable' }); return; }
     if (!isChantComplete(chant)) {
       const reasons = [];
-      if (!chant.partition) reasons.push('partition manquante');
-      if (!(chant.audios && chant.audios.length) && !chant.youtube) reasons.push('audio manquant');
+      if (!chantHasMedia(chant)) reasons.push('partition, audio ou vidéo manquant');
+      if (!chant.texte) reasons.push('texte manquant');
       out.push({ slot: slot.label, titre: chant.titre, reason: reasons.join(', ') });
     }
   });
@@ -1245,7 +1319,7 @@ function validateProgramme(id) {
     toast(`Validation impossible : ${incomplete.length} chant(s) incomplet(s) (partition/audio manquant)`);
     return;
   }
-  p.statut = 'validé'; persist(); toast('Programme validé'); render();
+  p.statut = 'validé'; persist(); toast('Programme validé'); nav('#/programmes'); render();
 }
 function deleteProgramme(id) {
   if (!confirm('Supprimer ce programme ?')) return;
