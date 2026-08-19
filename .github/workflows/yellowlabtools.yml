@@ -1,0 +1,83 @@
+name: Audit YellowLabTools - Cantoral (version initiale)
+
+# Cantoral n'évolue plus : ce workflow se lance uniquement à la demande
+# (bouton "Run workflow"), pas automatiquement à chaque push.
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Démarrer le serveur YellowLabTools (Docker)
+        run: docker run -d --privileged -p 8383:8383 --name ylt ousamabenyounes/yellowlabtools
+
+      - name: Attendre que le serveur soit prêt
+        timeout-minutes: 3
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8383/ > /dev/null; then
+              echo "Serveur YLT prêt."
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Le serveur YLT n'a pas démarré à temps."
+          exit 1
+
+      - name: Lancer l'audit (avec le rôle "visiteur" via cookie, pour dépasser l'écran de choix de profil)
+        run: |
+          COOKIE="ylt_role=visiteur;domain=cantoral.nadybabs2023.workers.dev"
+          RUN_ID=$(curl -s -X POST http://localhost:8383/api/runs \
+            -H "Content-Type: application/json" \
+            -d "{\"url\":\"https://cantoral.nadybabs2023.workers.dev\",\"waitForResponse\":false,\"cookie\":\"$COOKIE\",\"screenshot\":true}" \
+            | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).runId')
+          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+          echo "Run lancé, id : $RUN_ID"
+
+      - name: Attendre la fin de l'audit (avec limite de temps)
+        timeout-minutes: 5
+        run: |
+          for i in $(seq 1 60); do
+            STATUS=$(curl -s http://localhost:8383/api/runs/$RUN_ID | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).status.statusCode')
+            echo "Statut : $STATUS"
+            if [ "$STATUS" == "complete" ]; then exit 0; fi
+            if [ "$STATUS" == "failed" ]; then echo "L'audit a échoué côté YellowLabTools."; exit 1; fi
+            sleep 5
+          done
+          echo "L'audit n'a pas terminé dans le temps imparti."
+          exit 1
+
+      - name: Récupérer le rapport complet
+        run: curl -s http://localhost:8383/api/results/$RUN_ID > ylt-report-cantoral.json
+
+      - name: Récupérer la capture d'écran (vérification visuelle)
+        run: curl -s http://localhost:8383/api/results/$RUN_ID/screenshot.jpg > ylt-screenshot-cantoral.jpg
+
+      - name: Afficher un résumé rapide dans les logs
+        run: |
+          echo "=== Scores YellowLabTools - Cantoral (version initiale) ==="
+          node -e "
+            const r = require('./ylt-report-cantoral.json');
+            function findScores(obj, path) {
+              if (obj && typeof obj === 'object') {
+                for (const k in obj) {
+                  if (k.toLowerCase().includes('globalscore')) {
+                    console.log((path + '.' + k).slice(1), ':', obj[k]);
+                  }
+                  findScores(obj[k], path + '.' + k);
+                }
+              }
+            }
+            findScores(r, '');
+          " || echo "Impossible d'extraire le résumé, voir le rapport complet en pièce jointe."
+
+      - name: Sauvegarder le rapport et la capture d'écran
+        uses: actions/upload-artifact@v4
+        with:
+          name: yellowlabtools-report-cantoral
+          path: |
+            ylt-report-cantoral.json
+            ylt-screenshot-cantoral.jpg
+          retention-days: 90
