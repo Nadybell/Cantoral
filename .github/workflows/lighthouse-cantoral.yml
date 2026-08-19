@@ -1,0 +1,42 @@
+name: Audit Lighthouse - Cantoral (version initiale)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Installer Lighthouse
+        run: npm install -g lighthouse
+
+      - name: Autoriser Chrome à démarrer dans cet environnement (restriction noyau Ubuntu)
+        run: |
+          echo 'kernel.apparmor_restrict_unprivileged_userns=0' | sudo tee -a /etc/sysctl.d/60-apparmor-namespace.conf
+          sudo sysctl --system
+
+      - name: Lancer Lighthouse (rôle "visiteur" via cookie)
+        run: |
+          lighthouse https://cantoral.nadybabs2023.workers.dev \
+            --output=json --output-path=lighthouse-report-cantoral.json \
+            --chrome-flags="--headless --no-sandbox" \
+            --extra-headers="{\"Cookie\":\"ylt_role=visiteur\"}"
+
+      - name: Afficher un résumé rapide dans les logs
+        run: |
+          echo "=== Scores Lighthouse - Cantoral ==="
+          node -e "
+            const r = require('./lighthouse-report-cantoral.json');
+            console.log('Performance     :', Math.round(r.categories.performance.score * 100));
+            console.log('Accessibilité   :', Math.round(r.categories.accessibility.score * 100));
+            console.log('Bonnes pratiques:', Math.round(r.categories['best-practices'].score * 100));
+            console.log('SEO             :', Math.round(r.categories.seo.score * 100));
+          "
+
+      - name: Sauvegarder le rapport
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report-cantoral
+          path: lighthouse-report-cantoral.json
+          retention-days: 90
