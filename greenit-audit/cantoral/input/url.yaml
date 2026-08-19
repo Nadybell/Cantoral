@@ -1,0 +1,9 @@
+# Analyse Cantoral en simulant le clic sur le rôle "Visiteur" avant l'analyse
+- name: "Cantoral - Accueil (rôle Visiteur)"
+  url: "https://cantoral.nadybabs2023.workers.dev"
+  actions:
+    - name: "Sélectionner le rôle Visiteur"
+      type: "click"
+      element: "#opt-visiteur"
+      waitForTimeout: 1500
+  screenshot: "screenshot-cantoral.png"
