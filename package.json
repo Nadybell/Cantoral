@@ -1,0 +1,10 @@
+{
+  "name": "gestoffice-ecoindex-audit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Audit EcoIndex automatisé de GestOffice via Cypress, exécuté en CI/CD.",
+  "devDependencies": {
+    "cypress": "^13.13.0",
+    "@cnumr/eco-index-audit": "^3.3.0"
+  }
+}
