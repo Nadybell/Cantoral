@@ -1,0 +1,34 @@
+name: Audit GreenIT-Analysis - Cantoral (version initiale)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le code (fichiers de config dans greenit-audit/)
+        uses: actions/checkout@v4
+
+      - name: Préparer les dossiers input/output
+        run: |
+          mkdir -p greenit-audit/cantoral/input greenit-audit/cantoral/output
+          chmod 755 greenit-audit/cantoral/input
+          chmod 777 greenit-audit/cantoral/output
+
+      - name: Lancer GreenIT-Analysis (Docker, clic sur le rôle Visiteur)
+        run: |
+          docker run --rm --cap-add=SYS_ADMIN \
+            -v ${{ github.workspace }}/greenit-audit/cantoral/input:/app/input \
+            -v ${{ github.workspace }}/greenit-audit/cantoral/output:/app/output \
+            -e TZ=Europe/Paris \
+            jpreisner/greenit-analysis-cli \
+            greenit analyse /app/input/url.yaml /app/output/results.html --format=html --ci
+
+      - name: Sauvegarder le rapport (HTML + captures d'écran)
+        uses: actions/upload-artifact@v4
+        with:
+          name: greenit-report-cantoral
+          path: greenit-audit/cantoral/output/
+          retention-days: 90
