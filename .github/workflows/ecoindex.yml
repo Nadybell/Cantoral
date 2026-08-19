@@ -1,0 +1,36 @@
+name: Audit EcoIndex - Cantoral (version initiale)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le code (package.json, cypress.config.js, tests)
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installer les dépendances (Cypress + EcoIndex)
+        run: npm install
+
+      - name: Lancer l'audit EcoIndex (rôle "visiteur" via cookie)
+        env:
+          CYPRESS_TARGET_URL: https://cantoral.nadybabs2023.workers.dev
+          CYPRESS_ROLE_COOKIE_VALUE: visiteur
+        run: npx cypress run
+
+      - name: Afficher le résultat dans les logs
+        run: cat ecoindex-report.json || echo "Rapport introuvable"
+
+      - name: Sauvegarder le rapport
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecoindex-report-cantoral
+          path: ecoindex-report.json
+          retention-days: 90
