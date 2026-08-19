@@ -70,6 +70,19 @@ function loadDB() {
 function saveDB(db) { localStorage.setItem(LS_KEY, JSON.stringify(db)); }
 
 let DB = loadDB();
+
+/* Réservé aux audits automatisés (ex: YellowLabTools en CI) : si un rôle est
+   transmis via un cookie (ylt_role), on l'utilise pour démarrer directement
+   dans l'app plutôt que de rester bloqué sur l'écran "Choisissez un profil".
+   Sans effet pour un visiteur normal, qui n'a jamais ce cookie. */
+(function applyAuditRoleCookie() {
+  const match = document.cookie.match(/(?:^|; )ylt_role=([^;]*)/);
+  if (match) {
+    const role = decodeURIComponent(match[1]);
+    localStorage.setItem('cantoral_role', role);
+  }
+})();
+
 let ROLE = localStorage.getItem('cantoral_role') || null;
 
 function persist() { saveDB(DB); }
