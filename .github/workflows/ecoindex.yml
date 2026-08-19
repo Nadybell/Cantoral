@@ -17,20 +17,30 @@ jobs:
           node-version: 20
 
       - name: Installer les dépendances (Cypress + EcoIndex)
-        run: npm install
+        working-directory: ecoindex-audit
+        run: |
+          cp package.audit.json package.json
+          npm install
+
+      - name: Autoriser Chrome à démarrer dans cet environnement (restriction noyau Ubuntu)
+        run: |
+          echo 'kernel.apparmor_restrict_unprivileged_userns=0' | sudo tee -a /etc/sysctl.d/60-apparmor-namespace.conf
+          sudo sysctl --system
 
       - name: Lancer l'audit EcoIndex (rôle "visiteur" via cookie)
+        working-directory: ecoindex-audit
         env:
           CYPRESS_TARGET_URL: https://cantoral.nadybabs2023.workers.dev
           CYPRESS_ROLE_COOKIE_VALUE: visiteur
         run: npx cypress run
 
       - name: Afficher le résultat dans les logs
+        working-directory: ecoindex-audit
         run: cat ecoindex-report.json || echo "Rapport introuvable"
 
       - name: Sauvegarder le rapport
         uses: actions/upload-artifact@v4
         with:
           name: ecoindex-report-cantoral
-          path: ecoindex-report.json
+          path: ecoindex-audit/ecoindex-report.json
           retention-days: 90
