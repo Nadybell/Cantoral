@@ -1,0 +1,94 @@
+name: Audit YellowLabTools - Cantoral (serveur local, sans hébergement)
+
+# Objectif : auditer les fichiers du repo tels quels, sans passer par un
+# hébergeur (Cloudflare ou autre). Les fichiers sont servis par un mini
+# serveur local, à l'intérieur même de cette machine temporaire GitHub —
+# jamais exposés sur internet, jamais déployés nulle part.
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le code du repo (index.html, app.js)
+        uses: actions/checkout@v4
+
+      - name: Démarrer un serveur local pour servir les fichiers (aucun hébergement)
+        run: |
+          python3 -m http.server 8080 &
+          sleep 2
+          echo "Serveur local démarré sur http://localhost:8080"
+
+      - name: Démarrer le serveur YellowLabTools (Docker, connecté au réseau local de cette machine)
+        run: docker run -d --network=host --privileged --name ylt ousamabenyounes/yellowlabtools
+
+      - name: Attendre que le serveur YLT soit prêt
+        timeout-minutes: 3
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8383/ > /dev/null; then
+              echo "Serveur YLT prêt."
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Le serveur YLT n'a pas démarré à temps."
+          exit 1
+
+      - name: Lancer l'audit sur le serveur local (rôle "visiteur" via cookie)
+        run: |
+          COOKIE="ylt_role=visiteur;domain=localhost"
+          RUN_ID=$(curl -s -X POST http://localhost:8383/api/runs \
+            -H "Content-Type: application/json" \
+            -d "{\"url\":\"http://localhost:8080/index.html\",\"waitForResponse\":false,\"cookie\":\"$COOKIE\",\"screenshot\":true}" \
+            | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).runId')
+          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+          echo "Run lancé, id : $RUN_ID"
+
+      - name: Attendre la fin de l'audit (avec limite de temps)
+        timeout-minutes: 5
+        run: |
+          for i in $(seq 1 60); do
+            STATUS=$(curl -s http://localhost:8383/api/runs/$RUN_ID | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).status.statusCode')
+            echo "Statut : $STATUS"
+            if [ "$STATUS" == "complete" ]; then exit 0; fi
+            if [ "$STATUS" == "failed" ]; then echo "L'audit a échoué."; exit 1; fi
+            sleep 5
+          done
+          echo "Timeout."
+          exit 1
+
+      - name: Récupérer le rapport complet
+        run: curl -s http://localhost:8383/api/results/$RUN_ID > ylt-report-cantoral-local.json
+
+      - name: Récupérer la capture d'écran
+        run: curl -s http://localhost:8383/api/results/$RUN_ID/screenshot.jpg > ylt-screenshot-cantoral-local.jpg
+
+      - name: Afficher un résumé rapide dans les logs
+        run: |
+          echo "=== Scores YellowLabTools - Cantoral (serveur local) ==="
+          node -e "
+            const r = require('./ylt-report-cantoral-local.json');
+            function findScores(obj, path) {
+              if (obj && typeof obj === 'object') {
+                for (const k in obj) {
+                  if (k.toLowerCase().includes('globalscore')) {
+                    console.log((path + '.' + k).slice(1), ':', obj[k]);
+                  }
+                  findScores(obj[k], path + '.' + k);
+                }
+              }
+            }
+            findScores(r, '');
+          " || echo "Impossible d'extraire le résumé, voir le rapport complet en pièce jointe."
+
+      - name: Sauvegarder le rapport et la capture d'écran
+        uses: actions/upload-artifact@v4
+        with:
+          name: yellowlabtools-report-cantoral-local
+          path: |
+            ylt-report-cantoral-local.json
+            ylt-screenshot-cantoral-local.jpg
+          retention-days: 90
