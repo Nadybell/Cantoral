@@ -1,0 +1,47 @@
+name: Audit Lighthouse - Cantoral (serveur local, sans hébergement)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le code (script lighthouse-audit.js + index.html/app.js)
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installer Puppeteer et Lighthouse
+        working-directory: lighthouse-audit
+        run: npm install puppeteer lighthouse
+
+      - name: Autoriser Chrome à démarrer dans cet environnement (restriction noyau Ubuntu)
+        run: |
+          echo 'kernel.apparmor_restrict_unprivileged_userns=0' | sudo tee -a /etc/sysctl.d/60-apparmor-namespace.conf
+          sudo sysctl --system
+
+      - name: Démarrer un serveur local pour servir les fichiers (aucun hébergement)
+        run: |
+          python3 -m http.server 8080 &
+          sleep 2
+          echo "Serveur local démarré sur http://localhost:8080"
+
+      - name: Lancer l'audit (sélection du rôle Visiteur, puis Lighthouse, sur le serveur local)
+        working-directory: lighthouse-audit
+        env:
+          TARGET_URL: http://localhost:8080/index.html
+          ROLE_SELECTOR: "#opt-visiteur"
+          OUTPUT_PATH: lighthouse-report-cantoral-local.json
+        run: node lighthouse-audit.js
+
+      - name: Sauvegarder le rapport
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report-cantoral-local
+          path: lighthouse-audit/lighthouse-report-cantoral-local.json
+          retention-days: 90

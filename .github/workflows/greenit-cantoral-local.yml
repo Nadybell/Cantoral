@@ -1,0 +1,53 @@
+name: Audit GreenIT-Analysis - Cantoral (serveur local, sans hébergement)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le code (fichiers de config + index.html/app.js)
+        uses: actions/checkout@v4
+
+      - name: Préparer les dossiers input/output
+        run: |
+          mkdir -p greenit-audit/cantoral-local/input greenit-audit/cantoral-local/output
+          chmod 755 greenit-audit/cantoral-local/input
+          chmod 777 greenit-audit/cantoral-local/output
+
+      - name: Démarrer un serveur local pour servir les fichiers (aucun hébergement)
+        run: |
+          python3 -m http.server 8080 &
+          sleep 2
+          echo "Serveur local démarré sur http://localhost:8080"
+
+      - name: Générer url.yaml (cible le serveur local)
+        run: |
+          cat > greenit-audit/cantoral-local/input/url.yaml << 'EOF'
+          - name: "Cantoral - Accueil (serveur local, rôle Visiteur)"
+            url: "http://localhost:8080/index.html"
+            actions:
+              - name: "Sélectionner le rôle Visiteur"
+                type: "click"
+                element: "#opt-visiteur"
+                waitForTimeout: 1500
+            screenshot: "screenshot-cantoral-local.png"
+          EOF
+
+      - name: Lancer GreenIT-Analysis (Docker, connecté au réseau local de cette machine)
+        run: |
+          docker run --rm --cap-add=SYS_ADMIN --network=host \
+            -v ${{ github.workspace }}/greenit-audit/cantoral-local/input:/app/input \
+            -v ${{ github.workspace }}/greenit-audit/cantoral-local/output:/app/output \
+            -e TZ=Europe/Paris \
+            jpreisner/greenit-analysis-cli \
+            greenit analyse /app/input/url.yaml /app/output/results.html --format=html --ci
+
+      - name: Sauvegarder le rapport (HTML + captures d'écran)
+        uses: actions/upload-artifact@v4
+        with:
+          name: greenit-report-cantoral-local
+          path: greenit-audit/cantoral-local/output/
+          retention-days: 90

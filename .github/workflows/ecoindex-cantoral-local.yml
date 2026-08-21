@@ -1,0 +1,52 @@
+name: Audit EcoIndex - Cantoral (serveur local, sans hébergement)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le code (fichiers de config + index.html/app.js)
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installer les dépendances (Cypress + EcoIndex)
+        working-directory: ecoindex-audit
+        run: |
+          cp package.audit.json package.json
+          npm install
+
+      - name: Autoriser Chrome à démarrer dans cet environnement (restriction noyau Ubuntu)
+        run: |
+          echo 'kernel.apparmor_restrict_unprivileged_userns=0' | sudo tee -a /etc/sysctl.d/60-apparmor-namespace.conf
+          sudo sysctl --system
+
+      - name: Démarrer un serveur local pour servir les fichiers (aucun hébergement)
+        run: |
+          python3 -m http.server 8080 &
+          sleep 2
+          echo "Serveur local démarré sur http://localhost:8080"
+
+      - name: Lancer l'audit EcoIndex (rôle "visiteur" via cookie, sur le serveur local)
+        working-directory: ecoindex-audit
+        env:
+          CYPRESS_TARGET_URL: http://localhost:8080/index.html
+          CYPRESS_ROLE_COOKIE_VALUE: visiteur
+        run: npx cypress run
+
+      - name: Renommer le rapport pour éviter toute confusion avec la version Cloudflare
+        working-directory: ecoindex-audit
+        run: mv ecoindex-report.json ecoindex-report-cantoral-local.json
+
+      - name: Sauvegarder le rapport
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecoindex-report-cantoral-local
+          path: ecoindex-audit/ecoindex-report-cantoral-local.json
+          retention-days: 90
